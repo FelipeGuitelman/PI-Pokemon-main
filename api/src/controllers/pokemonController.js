@@ -41,7 +41,7 @@ class PokemonModel extends ModelCrud {
     }
   }
 
-  getAllBd = async (req, res, next) => {
+  getAllBd = async () => {
     const pokesBd = this.model.findAll({
       include: {
         model: Type,
@@ -53,8 +53,8 @@ class PokemonModel extends ModelCrud {
     });    
     return pokesBd
   }
-  getAllApi = async (req, res, next) => {
-    const pokesApi0 = (await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=30"));
+  getAllApi = async () => {
+    const pokesApi0 = (await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=10"));
     const pokesApi = pokesApi0.data.results
     let pokemonesApi = pokesApi.map(e => axios.get(e.url))
     let allUrlInfo = await axios.all(pokemonesApi)
@@ -77,8 +77,6 @@ class PokemonModel extends ModelCrud {
   }
   getAll = async (req, res, next) => {
     try {
-      // const pokePosta = await this.getAllApi()
-
       const [pokesApi, pokesBd] = await Promise.all([this.getAllApi(), this.getAllBd()]);
       return (res.send([...pokesApi, ...pokesBd]));
 
@@ -106,8 +104,16 @@ class PokemonModel extends ModelCrud {
         .catch((error) => next(error))
     }
     else {
-      return this.model.findByPk(id)
-        .then(result => res.send(result))
+      return this.model.findByPk(id,{
+        include: {
+          model: Type,
+          attributes: ['name'],
+          through: {
+            attributes: [],
+          },
+        }
+      })
+        .then(result => res.send([result]))
         .catch((error) => next(error))
     }
   }

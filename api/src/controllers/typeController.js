@@ -8,10 +8,9 @@ class TypeModel extends ModelCrud {
   constructor(model) {
     super(model);
   }
-  getAllToBd = async(req, res, next) => {
+  getAllToBd = async() => {
     try {
       let types = (await axios.get("https://pokeapi.co/api/v2/type")).data.results.map(p=>({
-        // id: uuidv4(),
         name: p.name
       }))
       await Type.bulkCreate(types)

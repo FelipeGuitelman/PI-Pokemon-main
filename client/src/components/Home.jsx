@@ -18,7 +18,7 @@ export default function Home() {
   const errores = useSelector((state) => state.errores)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [pokesPerPage, setPokesPerPage] = useState(10)
+  const [pokesPerPage, setPokesPerPage] = useState(5)
   const indexOfLastPoke = currentPage * pokesPerPage
   const indexOfFirstPoke = indexOfLastPoke - pokesPerPage
   const currentPokes = allPokemons.slice(indexOfFirstPoke, indexOfLastPoke)
@@ -26,6 +26,16 @@ export default function Home() {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber)
   }
+  // const prevpag = (currentPage) => {
+  //   if(currentPage > 1){
+  //     setCurrentPage(currentPage-1)
+  //   }
+  // }
+  // const postag = (currentPage) => {
+  //   if(currentPage+1){
+  //     setCurrentPage(currentPage+1)
+  //   }
+  // }
 
   useEffect(() => {
     dispatch(getPokemons())
@@ -64,17 +74,17 @@ export default function Home() {
   return (
     <div>
       {currentPokes.length > 0 || errores.length > 0 ?
-        <div>
-          <h1 style={{ color: '#cd5c5c'  }}>Who is that Pokémon??</h1>
-          <SerchBar />
           <div>
-            <Link to='/pokemons'>
-              <Button>Create Pokemon</Button>
-            </Link>
-            <Button onClick={e => { handleClick(e) }}>
-              Reload Pokemons
-            </Button>
-          </div>
+            <h1 style={{ color: '#cd5c5c'  }}>Who is that Pokémon??</h1>
+            <SerchBar />
+            <div>
+              <Link to='/pokemons'>
+                <Button>Create Pokemon</Button>
+              </Link>
+              <Button onClick={e => { handleClick(e) }}>
+                Reload Pokemons
+              </Button>
+            </div>
           <div>
             <select onChange={(e) => handleOrderByName(e)}>
               <option value="def">Order by Name</option>

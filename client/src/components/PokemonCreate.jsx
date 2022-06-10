@@ -93,6 +93,7 @@ export default function PokemonCreate() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if(!input.image)input.image="https://images6.fanpop.com/image/photos/39700000/20160224-dancave-fanpokemon-1x1-pokemon-39784118-322-268.jpg"
     dispatch(postPokemon(input))
     alert("Pokemon crated correctly!!")
     setInput({

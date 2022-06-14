@@ -73,6 +73,14 @@ export function orderByStrength(payload) {
   }
 }
 
+export function orderByLife(payload) {
+  console.log(payload)
+  return {
+    type: 'ORDER_BY_LIFE',
+    payload
+  }
+}
+
 export function getDetail (id){
   return async function (dispatch) {
     try {

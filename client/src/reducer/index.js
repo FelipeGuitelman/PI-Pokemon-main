@@ -121,6 +121,33 @@ function rootReducer(state = initialSatate, action) {
         errores: []
       }
 
+    case 'ORDER_BY_LIFE':
+      let sortedArr3 = action.payload === "lasc" ?
+        state.pokemons.sort(function (a, b) {
+          if (a.life > b.life) {
+            return 1;
+          }
+          if (b.life > a.life) {
+            return -1;
+          }
+          return 0;
+        }) :
+        state.pokemons.sort(function (a, b) {
+          if (a.life > b.life) {
+            return -1;
+          }
+          if (b.life > a.life) {
+            return 1;
+          }
+          return 0;
+        })
+
+      return {
+        ...state,
+        pokemons: action.payload === "def" ? state.allPokes : sortedArr3,
+        errores: []
+      }
+
     default: return state
   }
 }

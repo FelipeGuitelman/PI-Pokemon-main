@@ -2,7 +2,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPokemons, getAllTypes, filterByType, filterCreated, orderByName, orderByStrength } from '../actions'
+import { getPokemons, getAllTypes, filterByType, filterCreated, orderByName, orderByStrength, orderByLife } from '../actions'
 import { Link } from 'react-router-dom'
 import Card from './Card'
 import Paginado from './Paginado'
@@ -61,6 +61,13 @@ export default function Home() {
     setOrden(`Ordenado ${e.target.value}`)
   }
 
+  function handleOrderByLife(e) {
+    e.preventDefault();
+    dispatch(orderByLife(e.target.value))
+    setCurrentPage(1);
+    setOrden(`Ordenado ${e.target.value}`)
+  }
+
   function handleFilterType(e) {
     dispatch(filterByType(e.target.value))
     setCurrentPage(1)
@@ -95,6 +102,11 @@ export default function Home() {
               <option value="def">Order by Strength</option>
               <option value="fasc">Weakest first</option>
               <option value="fdes">Strongest first</option>
+            </select>
+            <select onChange={(e) => handleOrderByLife(e)}>
+              <option value="def">Order by Life</option>
+              <option value="lasc">Law first</option>
+              <option value="ldes">High first</option>
             </select>
             <select onChange={(e) => handleFilterType(e)}>
               <option value="all">Type</option>

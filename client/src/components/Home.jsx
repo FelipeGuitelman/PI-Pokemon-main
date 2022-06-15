@@ -18,7 +18,7 @@ export default function Home() {
   const errores = useSelector((state) => state.errores)
   const [orden, setOrden] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [pokesPerPage, setPokesPerPage] = useState(5)
+  const [pokesPerPage, setPokesPerPage] = useState(2)
   const indexOfLastPoke = currentPage * pokesPerPage
   const indexOfFirstPoke = indexOfLastPoke - pokesPerPage
   const currentPokes = allPokemons.slice(indexOfFirstPoke, indexOfLastPoke)

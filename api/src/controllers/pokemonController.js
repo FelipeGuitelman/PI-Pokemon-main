@@ -54,7 +54,7 @@ class PokemonModel extends ModelCrud {
     return pokesBd
   }
   getAllApi = async () => {
-    const pokesApi0 = (await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=6"));
+    const pokesApi0 = (await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=10"));
     const pokesApi = pokesApi0.data.results
     let pokemonesApi = pokesApi.map(e => axios.get(e.url))
     let allUrlInfo = await axios.all(pokemonesApi)
